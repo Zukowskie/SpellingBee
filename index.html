@@ -5,21 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Random Word Dictionary</title>
   <script>
+    // Function to fetch a random word from the specified column
     async function fetchWord(column) {
-      const response = await fetch(`https://script.google.com/macros/s/AKfycbzzSeamiMpvvEOjkrCn7RGgAYjcfMH6CS1n4BEPRiV33OSm1t8gdwWyjOqQZBjtobqE//exec?column=${column}`);
+      const response = await fetch(`https://script.google.com/macros/s/AKfycbw2LxLfQWz_u07sTg1tzuButHUIbLqYTBO8QHaYhoq5BNil1hQqOrFEs7QG5P6iGsis/exec?column=${column}`);
+      if (!response.ok) {
+        console.error('Error fetching word:', response.statusText);
+        return 'Error';
+      }
       const data = await response.json();
       return data.word;
     }
 
+    // Function to load the Merriam-Webster page for a random word
     async function loadMerriamWebster(column) {
       const word = await fetchWord(column);
+      if (word === 'Error') return; // Prevent further actions if fetch fails
       const iframe = document.getElementById('dictionary');
       iframe.src = `https://www.merriam-webster.com/dictionary/${word}`;
     }
   </script>
 </head>
 <body>
-  <!-- Buttons -->
+  <!-- Buttons for Easy, Medium, and Hard words -->
   <div style="text-align: center; margin-bottom: 20px;">
     <button onclick="loadMerriamWebster('A')" style="margin-right: 10px;">New Easy Word</button>
     <button onclick="loadMerriamWebster('B')" style="margin-right: 10px;">New Medium Word</button>
