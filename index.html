@@ -1,24 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Random Word Dictionary</title>
-  <script>
-    async function fetchWord() {
-      const response = await fetch('https://script.google.com/macros/s/AKfycby5R0VYSSJ0PQgqN42c0EMIO4MxrRMjVEgrTFwBOIzle3Ry1kdWkajmD4MZJALoTwDZ/exec');
-      const data = await response.json();
-      return data.word;
-    }
+<script>
+  async function fetchWord() {
+    const response = await fetch('https://script.google.com/macros/s/AKfycby5R0VYSSJ0PQgqN42c0EMIO4MxrRMjVEgrTFwBOIzle3Ry1kdWkajmD4MZJALoTwDZ/exec');
+    const data = await response.json();
+    return data.word;
+  }
 
-    async function loadMerriamWebster() {
-      const word = await fetchWord();
-      const iframe = document.getElementById('dictionary');
+  async function loadMerriamWebster() {
+    const word = await fetchWord();
+    const iframe = document.getElementById('dictionary');
+    if (iframe) {
       iframe.src = `https://www.merriam-webster.com/dictionary/${word}`;
+    } else {
+      console.error("Element with ID 'dictionary' not found.");
     }
+  }
 
-    window.onload = loadMerriamWebster;
-  </script>
-</head>
-<body>
-  <iframe id="dictionary"
+  window.onload = loadMerriamWebster;
+</script>
