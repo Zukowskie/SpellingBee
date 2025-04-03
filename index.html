@@ -1,0 +1,7 @@
+<script>
+  async function fetchWord() {
+    const response = await fetch('https://script.google.com/u/0/home/projects/1PXXdR62H9Z-oD4PLXTK53_TMJH5a0kh9CzeNcuSZb8D9w5pIqYPAxVNG');
+    const data = await response.json();
+    return data.word;
+  }
+</script>
